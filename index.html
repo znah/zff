@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script src="js/swissgl.js"></script>
+<style>
+* {box-sizing: border-box;}
+body {
+    background-color: #444;
+    color: #8e8;
+}
+
+.matrix {
+    display: grid;
+    grid-template-columns: repeat(16, 16px);
+    gap: 2px;
+    width: fit-content;
+    overflow:visible;
+    margin: 10px 10px;
+}
+.square {
+    width: 16px;
+    height: 16px;
+    background-color: #ddd;
+    cursor: pointer;
+    position: relative;
+}
+.square:hover {
+    /* background-color: #bbb; */
+    border: white 1px;
+    border-style: solid;
+}
+.tooltip {
+    visibility: hidden;
+    width: 120px;
+    background-color: #555;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px;
+    position: absolute;
+    z-index: 1;
+    top: 20px;
+    left: 50%;
+    margin-left: -60px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+.square:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+#colorPicker {
+    position: absolute;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 10;
+}
+
+</style>
+<div style="display: flex;">
+    <div>
+        <canvas id="c" width="800" height="800" style="width: 800px; height: 800px;"></canvas>
+        <p>
+            <label for="noise">Noise: <span id="noiseLabel">*</span></label> 
+            <input type="range" id="noise" min="0" max="10" value="4"> <br>
+            
+            <label for="seed">Seed:</label>
+            <input type="number" id="seed" value="6">
+            <button id="reset">Reset</button> To try:<br>
+            6 - black replicator at ~6k steps, ldir at ~10k<br>
+            7 - replicators are quick to appear, different end state<br>
+            <button id="playPause">pause</button>
+        </p>
+    </div>
+    <div style="margin-left: 10px;">
+        Colormap
+        <div id="matrix" class="matrix"></div>
+        <pre id="stat"></pre>
+    </div>
+</div>
+
+<input type="color" id="colorPicker">
+
+<script src="js/main.js" type="module"></script>
